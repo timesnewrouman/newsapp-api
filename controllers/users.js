@@ -2,6 +2,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const ConflictError = require('../errors/conflictError');
 
 module.exports.userInfo = (req, res, next) => { // возвращает информацию о пользователе
   User.findById(req.user._id)
@@ -15,6 +16,22 @@ module.exports.createUser = (req, res, next) => { // создание польз
     .then((hash) => User.create({ name, email, password: hash }))
     .then((user) => {
       res.send({ data: user.omitPrivate() });
+    })
+    .catch(next);
+};
+
+module.exports.createUser = (req, res, next) => { // создание пользователя
+  const { name, email } = req.body;
+  User.find({ email })
+    .then((data) => {
+      if (data.length === 1) {
+        return Promise.reject(new ConflictError('Адрес электронной почты уже используется'));
+      }
+      return bcrypt.hash(req.body.password, 10)
+        .then((hash) => User.create({ name, email, password: hash }))
+        .then((user) => {
+          res.send({ data: user.omitPrivate() });
+        });
     })
     .catch(next);
 };
