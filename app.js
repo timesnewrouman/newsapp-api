@@ -12,9 +12,13 @@ const { PORT, DATABASE_URL } = require('./config');
 const createUserSchema = require('./validationSchemas/createUser');
 const loginSchema = require('./validationSchemas/login');
 
-const app = express();
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  credentials: true,
+};
 
-app.use(cors());
+const app = express();
+app.use(cors(corsOptions));
 
 mongoose.connect(DATABASE_URL, {
   useNewUrlParser: true,
