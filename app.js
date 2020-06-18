@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { celebrate } = require('celebrate');
@@ -12,6 +13,8 @@ const createUserSchema = require('./validationSchemas/createUser');
 const loginSchema = require('./validationSchemas/login');
 
 const app = express();
+
+app.use(cors());
 
 mongoose.connect(DATABASE_URL, {
   useNewUrlParser: true,
