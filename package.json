@@ -1,6 +1,6 @@
 {
   "name": "newsapp-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Yandex.Praktikum web-development diploma",
   "main": "app.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "celebrate": "^12.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-winston": "^4.0.3",
