@@ -41,9 +41,12 @@ module.exports.login = (req, res, next) => { // авторизация поль�
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      res.send({
-        token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'x0oXkWVDk6ekqwspPTWkM5hilCpsAuAW', { expiresIn: '7d' }),
-      });
+      const token = jwt.sign({ _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'x0oXkWVDk6ekqwspPTWkM5hilCpsAuAW',
+        { expiresIn: '7d' });
+      res.cookie('jwt', token, { domain: '', httpOnly: true })
+        .send({ data: user.name })
+        .end();
     })
     .catch(next);
 };
