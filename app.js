@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const { celebrate } = require('celebrate');
 const { errors } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
@@ -12,23 +13,25 @@ const { PORT, DATABASE_URL } = require('./config');
 const createUserSchema = require('./validationSchemas/createUser');
 const loginSchema = require('./validationSchemas/login');
 
-const corsOptions = {
-  origin: 'http://localhost:8080',
-  credentials: true,
-};
-
 const app = express();
-app.use(cors(corsOptions));
 
 mongoose.connect(DATABASE_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  credentials: true,
+};
+
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(requestLogger);
 
 app.post('/signup', celebrate(createUserSchema), createUser);
