@@ -23,7 +23,6 @@ mongoose.connect(DATABASE_URL, {
 
 const corsOptions = {
   origin: 'http://localhost:8080',
-  credentials: true,
 };
 
 app.use(bodyParser.json());
