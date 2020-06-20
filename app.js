@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const { celebrate } = require('celebrate');
 const { errors } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
@@ -27,11 +26,9 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-app.use(cookieParser());
 app.use(requestLogger);
 
 app.post('/signup', celebrate(createUserSchema), createUser);

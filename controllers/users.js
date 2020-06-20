@@ -9,7 +9,6 @@ module.exports.userInfo = (req, res, next) => { // возвращает инфо
     .then((user) => res.send({ data: user }))
     .catch(next);
 };
-
 module.exports.createUser = (req, res, next) => { // создание пользователя
   const { name, email } = req.body;
   bcrypt.hash(req.body.password, 10)
@@ -41,12 +40,9 @@ module.exports.login = (req, res, next) => { // авторизация поль�
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'x0oXkWVDk6ekqwspPTWkM5hilCpsAuAW',
-        { expiresIn: '7d' });
-      res.cookie('jwt', token, { domain: '', httpOnly: true })
-        .send({ data: user.name })
-        .end();
+      res.send({
+        token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'x0oXkWVDk6ekqwspPTWkM5hilCpsAuAW', { expiresIn: '7d' }),
+      });
     })
     .catch(next);
 };
