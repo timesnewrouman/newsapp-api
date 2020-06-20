@@ -26,6 +26,8 @@ module.exports.createUser = (req, res, next) => { // создание польз
       if (data.length === 1) {
         return Promise.reject(new ConflictError('Адрес электронной почты уже используется'));
       }
+      res.set('Access-Control-Allow-Origin', 'http://localhost:8080');
+      res.set('Access-Control-Allow-Credentials', 'true');
       return bcrypt.hash(req.body.password, 10)
         .then((hash) => User.create({ name, email, password: hash }))
         .then((user) => {
