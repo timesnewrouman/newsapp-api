@@ -21,8 +21,20 @@ mongoose.connect(DATABASE_URL, {
   useUnifiedTopology: true,
 });
 
+const allowedList = [
+  'http://localhost:8080',
+  'https://timesnewrouman.github.io',
+  'https://www.timesnewrouman.github.io',
+];
+
 const corsOptions = {
-  origin: 'https://timesnewrouman.github.io',
+  origin: (origin, callback) => {
+    if (allowedList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 
