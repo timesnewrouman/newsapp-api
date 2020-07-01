@@ -14,13 +14,6 @@ const { PORT, DATABASE_URL } = require('./config');
 const createUserSchema = require('./validationSchemas/createUser');
 const loginSchema = require('./validationSchemas/login');
 
-mongoose.connect(DATABASE_URL, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
-
 const allowedList = [
   'http://localhost:8080',
   'https://timesnewrouman.github.io',
@@ -37,6 +30,13 @@ const corsOptions = {
   },
   credentials: true,
 };
+
+mongoose.connect(DATABASE_URL, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 app.use(cookieParser());
