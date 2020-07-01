@@ -22,7 +22,7 @@ mongoose.connect(DATABASE_URL, {
 });
 
 const corsOptions = {
-  origin: 'https://timesnewrouman.github.io/newsapp-frontend',
+  origin: 'https://timesnewrouman.github.io',
   credentials: true,
 };
 
