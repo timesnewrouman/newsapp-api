@@ -1,6 +1,6 @@
 {
   "name": "newsapp-api",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Yandex.Praktikum web-development diploma",
   "main": "app.js",
   "scripts": {

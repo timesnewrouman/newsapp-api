@@ -12,7 +12,7 @@ module.exports.postArticle = (req, res, next) => { // добавление ст�
   const { keyword, title, text, date, source, link, image } = req.body;
   const owner = req.user._id;
   Article.create({ keyword, title, text, date, source, link, image, owner })
-    .then((article) => res.send({ data: article }))
+    .then((article) => res.send({ data: article._id }))
     .catch(next);
 };
 
