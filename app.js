@@ -18,6 +18,10 @@ const allowedList = [
   'http://localhost:8080',
   'https://timesnewrouman.github.io',
   'https://www.timesnewrouman.github.io',
+  'https://www.newsapp.gq',
+  'https://newsapp.gq',
+  'http://www.newsapp.gq',
+  'http://newsapp.gq',
 ];
 
 const corsOptions = {
